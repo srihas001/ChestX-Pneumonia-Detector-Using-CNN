@@ -1,4 +1,5 @@
-![Uploading image.png…]()
+<img width="1075" height="820" alt="image" src="https://github.com/user-attachments/assets/f1308d45-73a5-4596-a593-4e29c1a4df70" />
+
 
 # 🩺 Chest X-ray Pneumonia Detector
 
