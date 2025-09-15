@@ -1,3 +1,5 @@
+![Uploading image.png…]()
+
 # 🩺 Chest X-ray Pneumonia Detector
 
 A deep learning application that uses Convolutional Neural Networks (CNN) to detect pneumonia from chest X-ray images. The model is deployed as a user-friendly Streamlit web application.
