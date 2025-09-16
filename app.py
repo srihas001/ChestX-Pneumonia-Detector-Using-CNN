@@ -2,23 +2,28 @@ import streamlit as st
 from PIL import Image
 import numpy as np
 from tensorflow.keras.models import load_model
+import gdown
+import os
 
 st.set_page_config(page_title="Chest X-ray Pneumonia Detector", layout="centered")
 
 st.title("🩺 Chest X-ray Pneumonia Detector")
-st.markdown("""
-Upload a chest X-ray image, and the model will predict whether it shows **Pneumonia** or is **Normal**.
-""")
+st.markdown("Upload a chest X-ray image, and the model will predict whether it shows **Pneumonia** or is **Normal**.")
 
-model = load_model("model5.keras")
+MODEL_PATH = "model5.keras"
+GDRIVE_URL = "https://drive.google.com/uc?id=1uiOX1hELu3gxIB0VBX4uc-lfoLBbjSu1"
+
+if not os.path.exists(MODEL_PATH):
+    gdown.download(GDRIVE_URL, MODEL_PATH, quiet=False)
+
+model = load_model(MODEL_PATH)
 
 uploaded_file = st.file_uploader("Upload Chest X-ray Image", type=["jpg", "png", "jpeg"])
 
 if uploaded_file is not None:
     img = Image.open(uploaded_file).convert("RGB")
     img_resized = img.resize((150, 150))
-    x = np.array(img_resized)
-    x = np.expand_dims(x, axis=0) / 255.0
+    x = np.expand_dims(np.array(img_resized)/255.0, axis=0)
 
     prediction = model.predict(x)[0][0]
     label = "PNEUMONIA" if prediction > 0.5 else "NORMAL"
